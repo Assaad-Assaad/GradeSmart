@@ -28,9 +28,12 @@ public class CoursesController {
     }
 
     @GetMapping("/{id}/students")
-    public Map<String, Object> getStudents(@PathVariable int id) {
+     Map<String, Object> getStudents(@PathVariable int id) {
         return courseService.allStudentsAssignedToACourse(id);
     }
+
+
+
 
 
 }

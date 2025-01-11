@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student, Integer> {
 
-   List<Student> findAByActive(boolean active);
+   List<Student> findByActive(boolean active);
 }

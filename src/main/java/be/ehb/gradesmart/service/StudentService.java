@@ -45,7 +45,7 @@ public class StudentService {
 
 
     public List<Student> getAllActiveStudents() {
-        return studentRepository.findAByActive(true);
+        return studentRepository.findByActive(true);
     }
 
     // Get all courses that assigned to a student and display only the names
