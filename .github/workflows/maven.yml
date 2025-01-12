@@ -60,14 +60,6 @@
 #              push: true
 #              tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gradesmart:latest
 #
-name: Building & Deploying the application
-
-on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-
 jobs:
   maven-build:
     runs-on: ubuntu-latest
@@ -93,35 +85,7 @@ jobs:
         run: mvn test
 
       - name: Build the application
-        run: mvn package -DskipTests
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: gradesmart-jar
-          path: target/*.jar
-
-  docker-build:
-    runs-on: ubuntu-latest
-    needs: maven-build  # Ensures that maven-build is successful before running docker-build
-
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v4
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: gradesmart-jar
-
-      - name: Setup Docker
-        uses: docker/setup-buildx-action@v2
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+        run: mvn package
 
       - name: Build Docker Image
         uses: docker/build-push-action@v6
@@ -129,14 +93,22 @@ jobs:
           context: .
           dockerfile: Dockerfile
           push: false
+          build-args: JAR_FILE=target/GradeSmart-0.0.1-SNAPSHOT.jar
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gradesmart:latest
-          build-args: JAR_FILE=target/*.jar  # Assuming your Dockerfile is using this build argument
 
-      - name: Push Docker Image to Docker Hub
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Push to Docker Hub
         uses: docker/build-push-action@v6
         with:
           context: .
           dockerfile: Dockerfile
           push: true
+          build-args: JAR_FILE=target/GradeSmart-0.0.1-SNAPSHOT.jar
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gradesmart:latest
+
 
