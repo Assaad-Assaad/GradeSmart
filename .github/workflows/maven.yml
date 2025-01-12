@@ -60,6 +60,14 @@
 #              push: true
 #              tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gradesmart:latest
 #
+name: Building & Deploying the application
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
 jobs:
   maven-build:
     runs-on: ubuntu-latest
