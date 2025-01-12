@@ -7,6 +7,7 @@ import be.ehb.gradesmart.repository.StudentRepository;
 import be.ehb.gradesmart.service.exeption.CreditsReachedException;
 import be.ehb.gradesmart.service.exeption.ResourceAlreadyExistsException;
 import be.ehb.gradesmart.service.exeption.ResourceNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,8 @@ public class StudentService {
         this.studentRepository = studentRepository;
         this.courseRepository = courseRepository;
     }
+
+
 
     public List<Student> getAllStudents() {
 

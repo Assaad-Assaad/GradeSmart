@@ -28,7 +28,7 @@ public class Student {
     private boolean active;
 
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JsonIgnoreProperties("students")
     private List<Course> courses = new ArrayList<>();
 
