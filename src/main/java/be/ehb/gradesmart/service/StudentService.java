@@ -46,6 +46,11 @@ public class StudentService {
         studentRepository.save(student);
     }
 
+    public void delete(int id) {
+        Student student = getStudentById(id);
+        studentRepository.delete(student);
+    }
+
 
     public List<Student> getAllActiveStudents() {
         return studentRepository.findByActive(true);
