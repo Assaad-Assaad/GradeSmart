@@ -36,7 +36,7 @@ jobs:
         run: mvn package
 
       - name: Upload JAR file as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: gradesmart-jar
           path: target/GradeSmart-0.0.1-SNAPSHOT.jar
