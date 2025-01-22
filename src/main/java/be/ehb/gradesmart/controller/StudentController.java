@@ -46,10 +46,10 @@ public class StudentController {
 
 
 
-//@DeleteMapping("{id}")
-//void deleteStudentById(@PathVariable int id) {
-//      studentService.delete(id);
-//}
+@DeleteMapping("{id}")
+void deleteStudentById(@PathVariable int id) {
+      studentService.delete(id);
+}
 
     @PostMapping
     void saveStudent(@Valid @RequestBody Student student){
