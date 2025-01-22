@@ -2,7 +2,6 @@ package be.ehb.gradesmart.controller;
 
 
 import be.ehb.gradesmart.model.Student;
-import be.ehb.gradesmart.service.CourseService;
 import be.ehb.gradesmart.service.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
+
 import java.util.List;
 import java.util.Map;
 
@@ -47,18 +46,19 @@ public class StudentController {
 
 
 
-@DeleteMapping("{id}")
-void deleteStudentById(@PathVariable int id) {
-      studentService.delete(id);
-}
+//@DeleteMapping("{id}")
+//void deleteStudentById(@PathVariable int id) {
+//      studentService.delete(id);
+//}
 
     @PostMapping
-    void saveStudent(@Valid @RequestBody Student student) throws SQLException {
+    void saveStudent(@Valid @RequestBody Student student){
         studentService.save(student);
     }
 
     @GetMapping("/{id}/courses")
     Map<String, Object> getCourses(@PathVariable int id) {
+
        return studentService.allCoursesAssignedToAStudent(id);
     }
 
